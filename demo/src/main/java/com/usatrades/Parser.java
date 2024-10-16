@@ -18,7 +18,7 @@ import java.util.Locale;
 
 public class Parser {
     public ArrayList<Trade> parse(File file) {
-        if (file.getName().equals("CLOSING CONFIRMATION REPORT - ABG.xls")) {
+        if (file.getName().contains("CLOSING CONFIRMATION REPORT - ABG")) {
             return readBeechHill(file);
         } else if (file.getName().contains("E28855")) {
             return read_instinet(file);
