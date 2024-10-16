@@ -82,8 +82,9 @@ public class Trade {
         int brokerQty = -qty;
         StringBuilder sb = new StringBuilder();
         // client side
+        // TODO: Dobbeltsjekk at output er riktig når du limer inn i Inferno
         sb.append("\t" + accountNr + "\t\t21\t" + smid + "\t" + qty + "\t" + get_output_price() + "\t" + td + "\t"
-                + sd + "\t" + comm + "\n");
+                + sd + comm + "\n");
         // broker side
         sb.append("\t" + brokerAccountNr + "\t\t21\t" + smid + "\t" + brokerQty + "\t" + get_output_price() + "\t" + td
                 + "\t" + sd);

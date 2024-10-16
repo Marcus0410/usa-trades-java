@@ -124,7 +124,11 @@ public class ViewModel {
 
         // find smid for all trades
         for (Trade trade : newTrades) {
-            trade.setSmid(securitiesMap.get(trade.getIsin()));
+            // if security does not exist
+            Integer smid = securitiesMap.get(trade.getIsin());
+            if (smid != null) {
+                trade.setSmid(securitiesMap.get(trade.getIsin()));
+            }
         }
 
         trades.addAll(newTrades);
