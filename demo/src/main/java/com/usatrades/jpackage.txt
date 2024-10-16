@@ -1,0 +1,9 @@
+jpackage --input target/ \
+         --name USA-booking \
+         --main-jar demo-1.0-SNAPSHOT.jar \
+         --main-class com.usatrades.Main \
+         --type exe
+
+
+         --icon src/main/resources/app_icon.ico 
+
