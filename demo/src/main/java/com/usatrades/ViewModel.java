@@ -186,13 +186,11 @@ public class ViewModel {
         // write new client to file
         try {
             FileWriter writer = new FileWriter(clientFile, true);
-            writer.write(clientName + "," + clientAccountNr);
-            writer.close();
-            // BufferedWriter bw = new BufferedWriter(writer);
+            BufferedWriter bw = new BufferedWriter(writer);
 
-            // bw.newLine();
-            // bw.write(clientName + "," + clientAccountNr);
-            // bw.close();
+            bw.write(clientName + "," + clientAccountNr);
+            bw.newLine();
+            bw.close();
             System.out.println("Added new client: " + newClient.toString());
         } catch (IOException e) {
             e.printStackTrace();
@@ -206,7 +204,9 @@ public class ViewModel {
         try {
             FileWriter writer = new FileWriter(securitiesFile, true);
             BufferedWriter bw = new BufferedWriter(writer);
-            bw.write("\n" + ticker + "," + isin + "," + smid);
+
+            bw.write(ticker + "," + isin + "," + smid);
+            bw.newLine();
             bw.close();
             System.out.println("Added new security: " + newSecurity.toString());
         } catch (IOException e) {
