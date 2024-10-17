@@ -44,7 +44,8 @@ public class Trade {
     }
 
     public double get_output_price() {
-        double output_price = (fees + netAmount) / qty;
+        double output_price = (fees + netAmount) / Math.abs(qty);
+        assert output_price > 0 : "output_price was negative.";
         // round to 4 decimal places
         BigDecimal roundedValue = BigDecimal.valueOf(output_price).setScale(4, RoundingMode.HALF_UP);
 
