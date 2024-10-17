@@ -27,11 +27,8 @@ public class GUI {
         viewModel = model;
 
         // if client and securities files are not found, show pop-ups
-        if (viewModel.clientFileFound() == false) {
-            selectClientFilePath(viewModel);
-        }
-        if (viewModel.securitiesFileFound() == false) {
-            selectSecuritiesFilePath(viewModel);
+        if (viewModel.clientFileFound() == false || viewModel.securitiesFileFound() == false) {
+            selectFilePaths(viewModel);
         }
 
         // Create a JFrame to hold the GUI panel
@@ -299,29 +296,15 @@ public class GUI {
     }
 
     // pop-up window that lets user select path for client file
-    private void selectClientFilePath(ViewModel viewModel) {
-        String path = JOptionPane.showInputDialog("Path to client file:");
-        File file = new File(path);
+    private void selectFilePaths(ViewModel viewModel) {
+        String cPath = JOptionPane.showInputDialog("Path to client file:");
+        String sPath = JOptionPane.showInputDialog("Path to securities file:");
 
         // continue asking for path if file still not found
-        while (viewModel.readClients(file) == null) {
+        while (viewModel.readClients(new File(cPath)) == null || viewModel.readSecurities(new File(sPath)) == null) {
             JOptionPane.showMessageDialog(null, "Could not find file on this path.");
-            path = JOptionPane.showInputDialog("Path to client file:");
-            file = new File(path);
+            cPath = JOptionPane.showInputDialog("Path to client file:");
+            sPath = JOptionPane.showInputDialog("Path to securities file:");
         }
     }
-
-    // pop-up window that lets user select path for securities file
-    private void selectSecuritiesFilePath(ViewModel viewModel) {
-        String path = JOptionPane.showInputDialog("Path to securities file:");
-        File file = new File(path);
-
-        // continue asking for path if file still not found
-        while (viewModel.readSecurities(file) == null) {
-            JOptionPane.showMessageDialog(null, "Could not find file on this path.");
-            path = JOptionPane.showInputDialog("Path to securities file:");
-            file = new File(path);
-        }
-    }
-
 }
