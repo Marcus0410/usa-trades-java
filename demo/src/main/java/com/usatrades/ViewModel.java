@@ -198,7 +198,14 @@ public class ViewModel {
     public void addSecurity(String ticker, String isin, int smid) {
         Security newSecurity = new Security(ticker, isin, smid);
 
-        // write new client to file
+        // update existing trades with this security
+        for (Trade trade : trades) {
+            if (trade.getIsin().equals(isin)) {
+                trade.setSmid(smid);
+            }
+        }
+
+        // write new security to file
         try {
             FileWriter writer = new FileWriter(securitiesFile, true);
             BufferedWriter bw = new BufferedWriter(writer);
