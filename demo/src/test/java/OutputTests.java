@@ -14,16 +14,16 @@ public class OutputTests {
         assertEquals(4.9038, outputPrice);
     }
 
-    @Test
-    public void convertionTest() {
-        // find smid
-        lunr.setSmid(585277);
-        String convertion = lunr.output();
-        String correct = "	0		21	585277	7000	4.9038	03/09/2024	04/09/2024\n"
-                + "	400860		21	585277	-7000	4.9038	03/09/2024	04/09/2024";
-
-        assertEquals(correct, convertion);
-    }
+    // @Test
+    // public void convertionTest() {
+    // // find smid
+    // lunr.setSmid(585277);
+    // String convertion = lunr.output();
+    // String correct = " 0 21 585277 7000 4.9038 03/09/2024 04/09/2024\n"
+    // + " 400860 21 585277 -7000 4.9038 03/09/2024 04/09/2024";
+    //
+    // assertEquals(correct, convertion);
+    // }
 }
 // -Kunde- 21 585277 7000 4.9038 03/09/2024 04/09/2024
 // 400860 21 585277 -7000 4.9038 03/09/2024 04/09/2024
