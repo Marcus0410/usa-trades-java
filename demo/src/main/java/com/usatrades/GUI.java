@@ -238,7 +238,7 @@ public class GUI {
         viewModel.clearTrades();
         // clear files
         viewModel.clearFiles();
-        filesLabel.setText("Ingen filer laster opp enda.");
+        filesLabel.setText("Ingen filer lastet opp enda.");
         outputArea.setText("");
         tradesTable = new JScrollPane(createTable());
     }
@@ -263,6 +263,9 @@ public class GUI {
             int smid = Integer.parseInt(smidArea.getText().trim());
 
             viewModel.addSecurity(ticker, isin, smid);
+
+            // update output
+            showOutput(outputArea);
 
             // clear input fiels
             tickerArea.setText("");
