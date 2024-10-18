@@ -43,7 +43,7 @@ public class GUI {
         frame.add(panel);
 
         // Create a label to display text underneath the drop area
-        filesLabel = new JLabel("No files dropped yet.", JLabel.CENTER);
+        filesLabel = new JLabel("Ingen filer laster opp enda.", JLabel.CENTER);
         filesLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         filesLabel.setForeground(Color.GRAY);
 
@@ -62,12 +62,12 @@ public class GUI {
 
         DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         // button to clear table
-        JButton clearButton = new JButton("RESET");
+        JButton clearButton = new JButton("Reset");
         clearButton.addActionListener(e -> clearTable(viewModel, tableModel));
         buttonsPanel.add(clearButton);
 
         // button to copy output to clipboard
-        JButton copyButton = new JButton("COPY");
+        JButton copyButton = new JButton("Kopier");
         copyButton.addActionListener(e -> {
             StringSelection stringSelection = new StringSelection(outputArea.getText());
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -108,7 +108,7 @@ public class GUI {
                     }
 
                     // Process the files and update the infoLabel
-                    StringBuilder fileNames = new StringBuilder("Uploaded files:\n");
+                    StringBuilder fileNames = new StringBuilder("Filer lastet opp:\n");
                     for (File file : viewModel.getFiles()) {
                         fileNames.append(file.getName()).append("\n");
                     }
@@ -179,11 +179,6 @@ public class GUI {
 
                 // update output
                 showOutput(outputArea);
-
-                // Optional: Output the updated trade for testing purposes
-                System.out.println("Updated Trade: " + trades.get(row).toString() + ", account_nr: "
-                        + trades.get(row).getAccountNr() + ", commission: "
-                        + trades.get(row).getCommissionFromBroker());
             }
         });
 
@@ -243,15 +238,13 @@ public class GUI {
         viewModel.clearTrades();
         // clear files
         viewModel.clearFiles();
-        filesLabel.setText("No files dropped yet.");
+        filesLabel.setText("Ingen filer laster opp enda.");
         outputArea.setText("");
         tradesTable = new JScrollPane(createTable());
     }
 
     private void showOutput(JTextArea area) {
         String output = viewModel.generateOutput();
-        System.out.println(output);
-
         area.setText(output);
     }
 

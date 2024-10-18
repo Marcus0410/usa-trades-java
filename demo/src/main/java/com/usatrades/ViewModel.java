@@ -22,7 +22,7 @@ public class ViewModel {
         this.clientFile = clientFile;
         this.securitiesFile = securitiesFile;
         // Read clients
-        clients.addAll(readClients(clientFile));
+        clients = readClients(clientFile);
         // Read securities
         securitiesMap = readSecurities(securitiesFile);
     }
@@ -72,7 +72,6 @@ public class ViewModel {
             // Sort the clients by name
             clientList.sort(Comparator.comparing(Client::getName));
 
-            clients.addAll(clientList);
             clientFile = file;
 
             return clientList;
@@ -97,7 +96,6 @@ public class ViewModel {
             }
             scanner.close();
 
-            securitiesMap = map;
             securitiesFile = file;
 
             return map;

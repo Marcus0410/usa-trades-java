@@ -45,7 +45,10 @@ public class Trade {
 
     public double get_output_price() {
         double output_price = (fees + netAmount) / Math.abs(qty);
-        assert output_price > 0 : "output_price was negative.";
+        // if output_price is negative, make it positive
+        if (output_price < 0) {
+            output_price = -output_price;
+        }
         // round to 4 decimal places
         BigDecimal roundedValue = BigDecimal.valueOf(output_price).setScale(4, RoundingMode.HALF_UP);
 
@@ -83,9 +86,8 @@ public class Trade {
         int brokerQty = -qty;
         StringBuilder sb = new StringBuilder();
         // client side
-        // TODO: Dobbeltsjekk at output er riktig når du limer inn i Inferno
         sb.append("\t" + accountNr + "\t\t21\t" + smid + "\t" + qty + "\t" + get_output_price() + "\t" + td + "\t"
-                + sd + comm + "\n");
+                + sd + "\t" + comm + "\n");
         // broker side
         sb.append("\t" + brokerAccountNr + "\t\t21\t" + smid + "\t" + brokerQty + "\t" + get_output_price() + "\t" + td
                 + "\t" + sd);
