@@ -43,7 +43,7 @@ public class GUI {
         frame.add(panel);
 
         // Create a label to display text underneath the drop area
-        filesLabel = new JLabel("Ingen filer laster opp enda.", JLabel.CENTER);
+        filesLabel = new JLabel("Ingen filer lastet opp enda.", JLabel.CENTER);
         filesLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         filesLabel.setForeground(Color.GRAY);
 
