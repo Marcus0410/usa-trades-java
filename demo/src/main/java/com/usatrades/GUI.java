@@ -5,6 +5,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumn;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -20,8 +21,9 @@ public class GUI {
 
     private JLabel filesLabel; // Text element to show dropped files
     private ViewModel viewModel;
-    private JScrollPane tradesTable; // Table element to show trades
+    private JScrollPane tradesTablePane; // Table element to show trades
     private JTextArea outputArea; // Text element to show output
+    private JTable tradesTable;
 
     public GUI(ViewModel model) {
         viewModel = model;
@@ -58,7 +60,7 @@ public class GUI {
         // Create the table
         JTable table = createTable();
         table.setFont(new Font("Arial", Font.PLAIN, 15));
-        tradesTable = new JScrollPane(table);
+        tradesTablePane = new JScrollPane(table);
 
         DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         // button to clear table
@@ -86,7 +88,7 @@ public class GUI {
         // Add components to the panel
         panel.add(filesLabel, BorderLayout.PAGE_END); // The text element at the bottom
         panel.add(buttonsPanel, BorderLayout.LINE_END); // The button at the bottom
-        tableAndOutputPanel.add(tradesTable);
+        tableAndOutputPanel.add(tradesTablePane);
         tableAndOutputPanel.add(outputPane);
         panel.add(tableAndOutputPanel, BorderLayout.CENTER);
 
@@ -183,17 +185,17 @@ public class GUI {
         });
 
         // Create the table
-        JTable table = new JTable(tableModel);
-        table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 15));
-        table.setRowHeight(30);
+        tradesTable = new JTable(tableModel);
+        tradesTable.getTableHeader().setFont(new Font("Arial", Font.BOLD, 15));
+        tradesTable.setRowHeight(30);
 
         // Create drowdown for client (account_nr)
         String[] clients = viewModel.getClientNames();
         JComboBox<String> comboBox1 = new JComboBox<>(clients);
         TableCellEditor editor1 = new DefaultCellEditor(comboBox1);
-        table.getColumnModel().getColumn(1).setCellEditor(editor1);
+        tradesTable.getColumnModel().getColumn(1).setCellEditor(editor1);
 
-        return table;
+        return tradesTable;
     }
 
     private JPanel newClientPanel() {
@@ -217,8 +219,17 @@ public class GUI {
             // clear input fiels
             clientNameTextField.setText("");
             clientAccountNrTextField.setText("");
-            // update table with new client
-            tradesTable = new JScrollPane(createTable());
+
+            // Refresh the client dropdown in the table
+            TableColumn clientColumn = tradesTable.getColumnModel().getColumn(1);
+            DefaultCellEditor editor = (DefaultCellEditor) clientColumn.getCellEditor();
+            JComboBox<String> comboBox1 = (JComboBox<String>) editor.getComponent(); // Get JComboBox from
+                                                                                     // DefaultCellEditor
+            // Update the JComboBox model with the new client list
+            comboBox1.setModel(new DefaultComboBoxModel<>(viewModel.getClientNames()));
+
+            // Notify the table model that data has changed
+            ((DefaultTableModel) tradesTable.getModel()).fireTableDataChanged();
         });
 
         // add components to addClientPanel
@@ -240,7 +251,7 @@ public class GUI {
         viewModel.clearFiles();
         filesLabel.setText("Ingen filer lastet opp enda.");
         outputArea.setText("");
-        tradesTable = new JScrollPane(createTable());
+        tradesTablePane = new JScrollPane(createTable());
     }
 
     private void showOutput(JTextArea area) {

@@ -180,6 +180,8 @@ public class ViewModel {
         Client newClient = new Client(clientName, clientAccountNr);
 
         clients.add(newClient);
+        // sort clients with newClient
+        clients.sort(Comparator.comparing(Client::getName));
 
         // write new client to file
         try {
