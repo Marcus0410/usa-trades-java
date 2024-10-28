@@ -59,6 +59,14 @@ public class Trade {
         this.smid = smid;
     }
 
+    public int getQty() {
+        return qty;
+    }
+
+    public char getSide() {
+        return side;
+    }
+
     public double getCommissionFromBroker() {
         return commissionFromBroker;
     }

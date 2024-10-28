@@ -166,11 +166,28 @@ public class GUI {
                 // Check if the change is in column 1 (List 1) or column 2 (List 2)
                 if (column == 1) {
                     String selected = (String) tableModel.getValueAt(row, column);
+
                     int account_nr = viewModel.findAccountNr(selected);
 
                     assert account_nr != -1;
 
-                    trades.get(row).set_account_nr(account_nr);
+                    Trade trade = trades.get(row);
+
+                    trade.set_account_nr(account_nr);
+
+                    //// if client 415874 has B and S of same qty, set 5 bps comm
+                    // if (account_nr == 415874) {
+                    // for (Trade t : viewModel.getTrades()) {
+                    // if (t.getAccountNr() == account_nr && t.getQty() == -trade.getQty()
+                    // && t.getSide() != trade.getSide() && t.getIsin().equals(trade.getIsin())) {
+                    // System.out.println("Found 2 skøien trades");
+                    //
+                    // trade.setCommissionFromBroker(0.05);
+                    // t.setCommissionFromBroker(0.05);
+                    // // tableModel.setValueAt("5", row, 2);
+                    // }
+                    // }
+                    // }
                 } else if (column == 2) {
                     String selected = (String) tableModel.getValueAt(row, column);
                     int bps = Integer.parseInt(selected);
