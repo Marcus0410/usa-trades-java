@@ -17,4 +17,7 @@ buildNumber.properties
 .classpath
 
 .DS_Store
-.csv
+
+# secrets
+kunder.csv
+papirer.csv
