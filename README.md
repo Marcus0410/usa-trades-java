@@ -43,8 +43,8 @@ git clone https://github.com/Marcus0410/usa-trades-java.git
 
 Build the project:
 
-mvn package
+mvn clean package
 
 Run the application:
 
-java -jar target/usa-trades-java.jar
+java -jar target/usatrades-1.0.jar
